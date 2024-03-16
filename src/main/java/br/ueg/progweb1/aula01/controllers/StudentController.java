@@ -1,16 +1,15 @@
 package br.ueg.progweb1.aula01.controllers;
 
+import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
 import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +26,13 @@ public class StudentController {
     public ResponseEntity<Object> create(@RequestBody Student student){
         Student studentSaved =  null;
         try{
-            service.save(student);
-        }catch (MandatoryException e){
-
+            service.create(student);
+        }catch (MandatoryException e) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
-                    .body("Erro:"+e.getMessage());
+                    .body("Erro:" + e.getMessage());
+        }catch (BusinessLogicException e){
+                return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
+                        .body("Erro:"+e.getMessage());
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Erro: desconhecido aconteceu:"+e.getMessage());
