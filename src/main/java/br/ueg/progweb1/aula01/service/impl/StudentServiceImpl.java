@@ -1,6 +1,7 @@
 package br.ueg.progweb1.aula01.service.impl;
 
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
+import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
 import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.repository.StudentRepository;
@@ -38,11 +39,41 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student update(Student dado){
-        validateMandatoryFields(dado);
-        validateBusinessLogic(dado);
-        validateBusinessLogicForUpdate(dado);
-        return repository.save(dado);
+    public Student update(Student dataToUpdate){
+        var dataDB = validateIdStudentExists(dataToUpdate.getId());
+        validateMandatoryFields(dataToUpdate);
+        validateBusinessLogic(dataToUpdate);
+        validateBusinessLogicForUpdate(dataToUpdate);
+        updateDataDBFromUpdate(dataToUpdate, dataDB);
+        return repository.save(dataDB);
+    }
+
+    private void updateDataDBFromUpdate(Student dataToUpdate, Student dataDB) {
+        dataDB.setName(dataToUpdate.getName());
+        dataDB.setCourse(dataToUpdate.getCourse());
+    }
+
+    private Student validateIdStudentExists(Long id){
+        boolean valid = true;
+        Student dadoBD = null;
+
+        if(Objects.nonNull(id)) {
+            dadoBD = this.getById(id);
+            if (dadoBD == null) {
+                valid = false;
+            }
+        }else{
+            valid = false;
+        }
+
+        if(Boolean.FALSE.equals(valid)){
+            throw new DataException("Estudante não existe");
+        }
+        return dadoBD;
+    }
+
+    private Student getById(Long id){
+        return repository.getReferenceById(id);
     }
 
     private void validateBusinessLogicForInsert(Student dado) {

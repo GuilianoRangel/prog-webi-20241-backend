@@ -26,7 +26,7 @@ public class StudentController {
     public ResponseEntity<Object> create(@RequestBody Student student){
         Student studentSaved =  null;
         try{
-            service.create(student);
+            studentSaved = service.create(student);
         }catch (MandatoryException e) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
                     .body("Erro:" + e.getMessage());
@@ -45,7 +45,7 @@ public class StudentController {
     public ResponseEntity<Object> update(@RequestBody Student student){
         Student studentSaved =  null;
         try{
-            service.update(student);
+            studentSaved = service.update(student);
         }catch (MandatoryException e) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
                     .body("Erro:" + e.getMessage());
