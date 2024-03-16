@@ -1,10 +1,11 @@
 package br.ueg.progweb1.aula01.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Getter
 @Setter
@@ -17,6 +18,15 @@ import lombok.*;
 public  class Student {
 
     @Id
+    @SequenceGenerator(
+            name="student_sequence",
+            sequenceName = "student_sequence_bd",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "student_sequence"
+    )
     @Column(name = "chave", nullable = false)
     private Long id;
 
@@ -28,4 +38,7 @@ public  class Student {
 
     @Column(name = "curso")
     private String course;
+
+    @Column(name = "data_criacao", nullable = false)
+    private LocalDate createdDate;
 }
