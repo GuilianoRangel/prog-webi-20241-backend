@@ -40,6 +40,25 @@ public class StudentController {
         return ResponseEntity.ok(studentSaved);
     }
 
+    @PutMapping
+    @Operation(description = "End point para inclusão de aluno")
+    public ResponseEntity<Object> update(@RequestBody Student student){
+        Student studentSaved =  null;
+        try{
+            service.update(student);
+        }catch (MandatoryException e) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
+                    .body("Erro:" + e.getMessage());
+        }catch (BusinessLogicException e){
+            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
+                    .body("Erro:"+e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
+        }
+        return ResponseEntity.ok(studentSaved);
+    }
+
     @GetMapping
     @Operation(description = "lista todos os estudantes")
     public ResponseEntity<List<Student>> listAll(){
