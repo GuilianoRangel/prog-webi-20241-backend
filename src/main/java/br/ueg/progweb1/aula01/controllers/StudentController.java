@@ -2,7 +2,10 @@ package br.ueg.progweb1.aula01.controllers;
 
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
+import br.ueg.progweb1.aula01.mapper.StudentMapper;
 import br.ueg.progweb1.aula01.model.Student;
+import br.ueg.progweb1.aula01.model.dtos.CreateStudentDTO;
+import br.ueg.progweb1.aula01.model.dtos.UpdateStudentDTO;
 import br.ueg.progweb1.aula01.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,16 @@ public class StudentController {
     @Autowired
     private StudentService service;
 
+    @Autowired
+    private StudentMapper mapper;
+
     @PostMapping
     @Operation(description = "End point para inclusão de aluno")
-    public ResponseEntity<Object> create(@RequestBody Student student){
+    public ResponseEntity<Object> create(@RequestBody CreateStudentDTO dto){
         Student studentSaved =  null;
         try{
-            studentSaved = service.create(student);
+            Student studentModel = mapper.toModel(dto);
+            studentSaved = service.create(studentModel);
         }catch (MandatoryException e) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
                     .body("Erro:" + e.getMessage());
@@ -40,12 +47,20 @@ public class StudentController {
         return ResponseEntity.ok(studentSaved);
     }
 
-    @PutMapping
+    @PutMapping(path = "/{id}")
     @Operation(description = "End point para inclusão de aluno")
-    public ResponseEntity<Object> update(@RequestBody Student student){
+    public ResponseEntity<Object> update(
+            @RequestBody UpdateStudentDTO dto,
+            @PathVariable("id") Long id){
         Student studentSaved =  null;
         try{
-            studentSaved = service.update(student);
+
+
+            Student data = mapper.toModel(dto);
+            data.setId(id);
+            studentSaved = service.update(data);
+
+
         }catch (MandatoryException e) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
                     .body("Erro:" + e.getMessage());
