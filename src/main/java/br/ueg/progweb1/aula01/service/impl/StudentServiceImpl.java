@@ -86,10 +86,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     private void validateBusinessLogicForInsert(Student dado) {
+        if(Strings.isEmpty(dado.getRegisterNumber()) ){
+            throw new BusinessLogicException(BusinessLogicError.MANDATORY_FIELD_NOT_FOUND);
+        }
         Optional<Student> byRegisterNumber = repository.findByRegisterNumber(dado.getRegisterNumber());
         if(byRegisterNumber.isPresent()){
             throw new BusinessLogicException(BusinessLogicError.REGISTER_NUMBER_DUPLICATED);
         }
+
     }
 
     private void validateBusinessLogicForUpdate(Student dado) {
@@ -104,7 +108,6 @@ public class StudentServiceImpl implements StudentService {
 
     private void validateMandatoryFields(Student dado) {
         if(
-                Strings.isEmpty(dado.getRegisterNumber()) ||
                 Strings.isEmpty(dado.getName())
         ){
             throw new MandatoryException("Campos obrigatórios não preenchidos");
