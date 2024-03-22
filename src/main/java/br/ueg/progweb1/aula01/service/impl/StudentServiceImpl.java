@@ -1,5 +1,6 @@
 package br.ueg.progweb1.aula01.service.impl;
 
+import br.ueg.progweb1.aula01.exceptions.BusinessLogicError;
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
 import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
@@ -11,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -48,6 +48,15 @@ public class StudentServiceImpl implements StudentService {
         return repository.save(dataDB);
     }
 
+    @Override
+    public List<Student> listYesterdayRegisters() {
+        Optional<List<Student>> listagem = repository.findYesterdayRegister();
+        if(listagem.isPresent()){
+            return listagem.get();
+        }
+        return new ArrayList<>();
+    }
+
     private void updateDataDBFromUpdate(Student dataToUpdate, Student dataDB) {
         dataDB.setName(dataToUpdate.getName());
         dataDB.setCourse(dataToUpdate.getCourse());
@@ -77,7 +86,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     private void validateBusinessLogicForInsert(Student dado) {
-
+        Optional<Student> byRegisterNumber = repository.findByRegisterNumber(dado.getRegisterNumber());
+        if(byRegisterNumber.isPresent()){
+            throw new BusinessLogicException(BusinessLogicError.REGISTER_NUMBER_DUPLICATED);
+        }
     }
 
     private void validateBusinessLogicForUpdate(Student dado) {

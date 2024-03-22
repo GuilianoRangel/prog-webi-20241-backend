@@ -74,4 +74,12 @@ public class StudentController {
                 Optional.ofNullable(studentList)
         );
     }
+
+    @GetMapping(path = "/yesterday-registers")
+    @Operation(description = "lista todos os estudantes matriculados antes de hoje")
+    public ResponseEntity<List<Student>> listYesterdayRegisters() {
+        return ResponseEntity.of(
+                Optional.ofNullable(service.listYesterdayRegisters())
+        );
+    }
 }
