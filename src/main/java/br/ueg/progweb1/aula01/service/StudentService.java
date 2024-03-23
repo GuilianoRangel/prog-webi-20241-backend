@@ -8,6 +8,7 @@ public interface StudentService {
     List<Student> listAll();
     Student create(Student dado);
     Student update(Student dado);
-
     List<Student> listYesterdayRegisters();
+
+    Student getById(Long id);
 }

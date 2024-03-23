@@ -1,6 +1,7 @@
 package br.ueg.progweb1.aula01.controllers;
 
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
+import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
 import br.ueg.progweb1.aula01.mapper.StudentMapper;
 import br.ueg.progweb1.aula01.model.Student;
@@ -97,4 +98,25 @@ public class StudentController {
                 Optional.ofNullable(service.listYesterdayRegisters())
         );
     }
+    @GetMapping(path = "/{id}")
+    @Operation(description = "End point para obter dados de aluno")
+    public ResponseEntity<Object> getById(
+            @PathVariable("id") Long id
+    ) {
+        Student studentDB =  Student.builder().id(0L).build();
+        try{
+
+            studentDB = service.getById(id);
+
+        }catch (DataException de){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
+        }
+        return ResponseEntity.ok(studentDB);
+    }
+
 }

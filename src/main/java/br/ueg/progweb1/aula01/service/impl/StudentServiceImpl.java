@@ -62,12 +62,16 @@ public class StudentServiceImpl implements StudentService {
         dataDB.setCourse(dataToUpdate.getCourse());
     }
 
+    public Student getById(Long id){
+        return this.validateIdStudentExists(id);
+    }
+
     private Student validateIdStudentExists(Long id){
         boolean valid = true;
         Student dadoBD = null;
 
         if(Objects.nonNull(id)) {
-            dadoBD = this.getById(id);
+            dadoBD = this.internalGetById(id);
             if (dadoBD == null) {
                 valid = false;
             }
@@ -81,8 +85,12 @@ public class StudentServiceImpl implements StudentService {
         return dadoBD;
     }
 
-    private Student getById(Long id){
-        return repository.getReferenceById(id);
+    private Student internalGetById(Long id){
+        Optional<Student> byId = repository.findById(id);
+        if(byId.isPresent()){
+            return byId.get();
+        }
+        return null;
     }
 
     private void validateBusinessLogicForInsert(Student dado) {
