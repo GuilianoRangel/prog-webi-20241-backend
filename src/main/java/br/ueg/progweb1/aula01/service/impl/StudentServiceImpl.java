@@ -62,8 +62,16 @@ public class StudentServiceImpl implements StudentService {
         dataDB.setCourse(dataToUpdate.getCourse());
     }
 
+    @Override
     public Student getById(Long id){
         return this.validateIdStudentExists(id);
+    }
+
+    @Override
+    public Student deleteById(Long id){
+        Student studentToRemove = this.validateIdStudentExists(id);
+        this.repository.delete(studentToRemove);
+        return studentToRemove;
     }
 
     private Student validateIdStudentExists(Long id){
