@@ -11,4 +11,6 @@ public interface StudentService {
     List<Student> listYesterdayRegisters();
 
     Student getById(Long id);
+
+    Student deleteById(Long id);
 }
