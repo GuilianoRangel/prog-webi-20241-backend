@@ -1,6 +1,7 @@
 package br.ueg.progweb1.aula01.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public  class Student {
     @Column(name = "matricula",  nullable = false, length = 10)
     private String registerNumber;
 
+    @NotNull
     @Column(name = "nome_aluno",  nullable = false, length = 150)
     private String name;
 
