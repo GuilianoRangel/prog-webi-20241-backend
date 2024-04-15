@@ -30,13 +30,16 @@ public class AppStartupRunner implements ApplicationRunner {
         if(!this.ddlAuto.equalsIgnoreCase(CREATE_DROP)){
             return;
         }
-        Student student = Student.builder()
-                .registerNumber("230322001")
-                .name("Fulano da Silva")
-                .course("Sistemas de Informação")
-                .createdDate(LocalDate.now().minusDays(1))
-                .build();
-        this.studentRepository.save(student);
+        Student student = null;
+        for (int i = 1; i<=30; i++){
+            student = Student.builder()
+                    .registerNumber("230322001")
+                    .name("Fulano da Silva"+i)
+                    .course("Sistemas de Informação")
+                    .createdDate(LocalDate.now().minusDays(1))
+                    .build();
+            this.studentRepository.save(student);
+        }
         LOG.info("Fim da execução");
     }
 
