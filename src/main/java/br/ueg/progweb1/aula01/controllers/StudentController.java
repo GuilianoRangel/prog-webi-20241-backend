@@ -77,6 +77,7 @@ public class StudentController {
 
     @GetMapping
     @Operation(description = "lista todos os estudantes")
+    @CrossOrigin()
     public ResponseEntity<List<Student>> listAll(){
 
         List<Student> studentList = new ArrayList<>();
@@ -107,6 +108,27 @@ public class StudentController {
         try{
 
             studentDB = service.getById(id);
+
+        }catch (DataException de){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
+        }
+        return ResponseEntity.ok(studentDB);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @Operation(description = "End point para remover dados de aluno")
+    public ResponseEntity<Object> remove(
+            @PathVariable("id") Long id
+    ) {
+        Student studentDB =  Student.builder().id(0L).build();
+        try{
+
+            studentDB = service.deleteById(id);
 
         }catch (DataException de){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
