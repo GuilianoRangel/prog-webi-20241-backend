@@ -1,5 +1,6 @@
 package br.ueg.progweb1.aula01.controllers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,12 @@ import java.util.Objects;
 @RestController
 @RequestMapping(path = "${api.version}/aula01")
 public class ControllerHelloWorld {
+
+    @Value("${configuracao.variavel}")
+    private String variavel;
     @GetMapping()
     public String HelloWorld(){
-        return "Olá mundo";
+        return "Olá mundo:"+this.variavel;
     }
     @PostMapping(path = "/{nome}")
     public String HelloWorld(@PathVariable(name = "nome") String nome){
