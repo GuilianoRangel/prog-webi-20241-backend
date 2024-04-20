@@ -15,38 +15,15 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends GenricCrudService<Student, Long, StudentRepository> implements StudentService {
 
-    @Autowired
-    private StudentRepository repository;
-    public List<Student> listAll(){
 
-        return repository.findAll();
-    }
 
-    @Override
-    public Student create(Student dado) {
-        prepareToCreate(dado);
-        validateMandatoryFields(dado);
-        validateBusinessLogic(dado);
-        validateBusinessLogicForInsert(dado);
-        return repository.save(dado);
-    }
-
-    private void prepareToCreate(Student dado) {
+    protected void prepareToCreate(Student dado) {
         dado.setId(null);
         dado.setCreatedDate(LocalDate.now());
     }
 
-    @Override
-    public Student update(Student dataToUpdate){
-        var dataDB = validateIdStudentExists(dataToUpdate.getId());
-        validateMandatoryFields(dataToUpdate);
-        validateBusinessLogic(dataToUpdate);
-        validateBusinessLogicForUpdate(dataToUpdate);
-        updateDataDBFromUpdate(dataToUpdate, dataDB);
-        return repository.save(dataDB);
-    }
 
     @Override
     public List<Student> listYesterdayRegisters() {
@@ -57,51 +34,14 @@ public class StudentServiceImpl implements StudentService {
         return new ArrayList<>();
     }
 
-    private void updateDataDBFromUpdate(Student dataToUpdate, Student dataDB) {
+    protected void updateDataDBFromUpdate(Student dataToUpdate, Student dataDB) {
         dataDB.setName(dataToUpdate.getName());
         dataDB.setCourse(dataToUpdate.getCourse());
     }
 
-    @Override
-    public Student getById(Long id){
-        return this.validateIdStudentExists(id);
-    }
 
-    @Override
-    public Student deleteById(Long id){
-        Student studentToRemove = this.validateIdStudentExists(id);
-        this.repository.delete(studentToRemove);
-        return studentToRemove;
-    }
 
-    private Student validateIdStudentExists(Long id){
-        boolean valid = true;
-        Student dadoBD = null;
-
-        if(Objects.nonNull(id)) {
-            dadoBD = this.internalGetById(id);
-            if (dadoBD == null) {
-                valid = false;
-            }
-        }else{
-            valid = false;
-        }
-
-        if(Boolean.FALSE.equals(valid)){
-            throw new DataException("Estudante não existe");
-        }
-        return dadoBD;
-    }
-
-    private Student internalGetById(Long id){
-        Optional<Student> byId = repository.findById(id);
-        if(byId.isPresent()){
-            return byId.get();
-        }
-        return null;
-    }
-
-    private void validateBusinessLogicForInsert(Student dado) {
+    protected void validateBusinessLogicForInsert(Student dado) {
         if(Strings.isEmpty(dado.getRegisterNumber()) ){
             throw new BusinessLogicException(BusinessLogicError.MANDATORY_FIELD_NOT_FOUND);
         }
@@ -112,17 +52,17 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-    private void validateBusinessLogicForUpdate(Student dado) {
+    protected void validateBusinessLogicForUpdate(Student dado) {
         if(dado.getId() <= 0L ){
             throw new BusinessLogicException("Id Inválido");
         }
     }
 
-    private void validateBusinessLogic(Student dado) {
+    protected void validateBusinessLogic(Student dado) {
 
     }
 
-    private void validateMandatoryFields(Student dado) {
+    protected void validateMandatoryFields(Student dado) {
         if(
                 Strings.isEmpty(dado.getName())
         ){

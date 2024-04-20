@@ -16,7 +16,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ALUNO")
-public  class Student {
+public  class Student implements GenericModel<Long> {
 
     @Id
     @SequenceGenerator(
