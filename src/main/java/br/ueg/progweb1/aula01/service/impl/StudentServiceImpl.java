@@ -2,20 +2,18 @@ package br.ueg.progweb1.aula01.service.impl;
 
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicError;
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
-import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
 import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.repository.StudentRepository;
 import br.ueg.progweb1.aula01.service.StudentService;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class StudentServiceImpl extends GenricCrudService<Student, Long, StudentRepository> implements StudentService {
+public class StudentServiceImpl extends GenericCrudService<Student, Long, StudentRepository> implements StudentService {
 
 
 

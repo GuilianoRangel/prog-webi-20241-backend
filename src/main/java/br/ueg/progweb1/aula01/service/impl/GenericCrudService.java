@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class GenricCrudService<
+public abstract class GenericCrudService<
             MODEL extends GenericModel<TYPE_PK>,
             TYPE_PK,
             REPOSITORY extends JpaRepository<MODEL, TYPE_PK>
