@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateStudentDTO {
+public class StudentCreateDTO {
     @Schema(description = "Número de matricula",example = "22222")
     private String registerNumber;
 

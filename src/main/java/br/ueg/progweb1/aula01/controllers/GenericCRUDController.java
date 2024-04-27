@@ -1,30 +1,27 @@
 package br.ueg.progweb1.aula01.controllers;
 
-import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
-import br.ueg.progweb1.aula01.exceptions.DataException;
-import br.ueg.progweb1.aula01.exceptions.MandatoryException;
-import br.ueg.progweb1.aula01.mapper.GenericSimpleMapper;
+import br.ueg.progweb1.aula01.mapper.GenericMapper;
 import br.ueg.progweb1.aula01.model.GenericModel;
-import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.service.CrudService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class GenericSimpleCRUDController<
+public abstract class GenericCRUDController<
         DTO,
+        DTOCreate,
+        DTOUpdate,
+        DTOList,
         MODEL extends GenericModel<TYPE_PK>,
         TYPE_PK,
         SERVICE extends CrudService<
                 MODEL,
                 TYPE_PK>,
-        MAPPER extends GenericSimpleMapper<DTO, MODEL, TYPE_PK>
+        MAPPER extends GenericMapper<DTO,DTOCreate, DTOUpdate, DTOList , MODEL, TYPE_PK>
         > {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -37,28 +34,28 @@ public abstract class GenericSimpleCRUDController<
 
     @PostMapping
     @Operation(description = "End point para inclusão de dado")
-    public ResponseEntity<Object> create(@RequestBody DTO dto) {
-        MODEL inputModel = mapper.toModel(dto);
-        MODEL resultModel = service.create(inputModel);
-        return ResponseEntity.ok(resultModel);
+    public ResponseEntity<DTO> create(@RequestBody DTOCreate dto) {
+        MODEL inputModel = mapper.fromModelCreatedToModel(dto);
+        DTO resultDTO = mapper.toDTO(service.create(inputModel));
+        return ResponseEntity.ok(resultDTO);
     }
 
     @PutMapping(path = "/{id}")
     @Operation(description = "End point para atualização de dados")
-    public ResponseEntity<Object> update(
-            @RequestBody DTO dto,
+    public ResponseEntity<DTO> update(
+            @RequestBody DTOUpdate dto,
             @PathVariable("id") TYPE_PK id) {
-        MODEL inputModel = mapper.toModel(dto);
+        MODEL inputModel = mapper.fromModelUpdatedToModel(dto);
         inputModel.setId(id);
         MODEL modelSaved = service.update(inputModel);
-        return ResponseEntity.ok(modelSaved);
+        return ResponseEntity.ok(mapper.toDTO(modelSaved));
     }
 
     @GetMapping
     @Operation(description = "lista todos os estudantes")
     @CrossOrigin()
-    public ResponseEntity<List<DTO>> listAll() {
-        List<DTO> modelList = mapper.toDTO(service.listAll());
+    public ResponseEntity<List<DTOList>> listAll() {
+        List<DTOList> modelList = mapper.fromModelToDTOList(service.listAll());
         return ResponseEntity.of(
                 Optional.ofNullable(modelList)
         );
@@ -66,7 +63,7 @@ public abstract class GenericSimpleCRUDController<
 
     @GetMapping(path = "/{id}")
     @Operation(description = "End point para obter dados por id")
-    public ResponseEntity<Object> getById(
+    public ResponseEntity<DTO> getById(
             @PathVariable("id") TYPE_PK id
     ) {
         DTO dtoResult = mapper.toDTO(service.getById(id));
@@ -75,7 +72,7 @@ public abstract class GenericSimpleCRUDController<
 
     @DeleteMapping(path = "/{id}")
     @Operation(description = "End point para remover dados por id")
-    public ResponseEntity<Object> remove(
+    public ResponseEntity<DTO> remove(
             @PathVariable("id") TYPE_PK id
     ) {
         DTO dtoResult = mapper.toDTO(service.deleteById(id));

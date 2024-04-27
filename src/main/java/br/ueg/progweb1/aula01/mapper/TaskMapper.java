@@ -7,7 +7,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class TaskMapper implements GenericSimpleMapper<TaskDTO, Task, Long> {
+public class TaskMapper implements GenericMapper<
+        TaskDTO,
+        TaskDTO,
+        TaskDTO,
+        TaskDTO,
+        Task,
+        Long
+        > {
     @Override
     public Task toModel(TaskDTO taskDTO) {
         Task value = Task.builder()
@@ -17,6 +24,17 @@ public class TaskMapper implements GenericSimpleMapper<TaskDTO, Task, Long> {
                 .build();
         return value;
     }
+
+    @Override
+    public Task fromModelCreatedToModel(TaskDTO taskDTO) {
+        return toModel(taskDTO);
+    }
+
+    @Override
+    public Task fromModelUpdatedToModel(TaskDTO taskDTO) {
+        return toModel(taskDTO);
+    }
+
 
     @Override
     public TaskDTO toDTO(Task model) {
@@ -29,7 +47,13 @@ public class TaskMapper implements GenericSimpleMapper<TaskDTO, Task, Long> {
     }
 
     @Override
-    public List<TaskDTO> toDTO(List<Task> tasks) {
+    public TaskDTO toDTOList(Task model) {
+        return toDTO(model);
+    }
+
+
+    @Override
+    public List<TaskDTO> fromModelToDTOList(List<Task> tasks) {
         if(tasks == null) return List.of();
         return tasks
                 .stream().map(

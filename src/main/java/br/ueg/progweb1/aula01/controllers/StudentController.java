@@ -1,20 +1,15 @@
 package br.ueg.progweb1.aula01.controllers;
 
-import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
-import br.ueg.progweb1.aula01.exceptions.DataException;
-import br.ueg.progweb1.aula01.exceptions.MandatoryException;
 import br.ueg.progweb1.aula01.mapper.StudentMapper;
 import br.ueg.progweb1.aula01.model.Student;
-import br.ueg.progweb1.aula01.model.dtos.CreateStudentDTO;
-import br.ueg.progweb1.aula01.model.dtos.UpdateStudentDTO;
+import br.ueg.progweb1.aula01.model.dtos.StudentCreateDTO;
+import br.ueg.progweb1.aula01.model.dtos.StudentUpdateDTO;
 import br.ueg.progweb1.aula01.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +25,7 @@ public class StudentController {
 
     @PostMapping
     @Operation(description = "End point para inclusão de aluno")
-    public ResponseEntity<Object> create(@RequestBody CreateStudentDTO dto){
+    public ResponseEntity<Object> create(@RequestBody StudentCreateDTO dto){
         Student studentModel = mapper.toModel(dto);
         Student studentSaved = service.create(studentModel);
         return ResponseEntity.ok(studentSaved);
@@ -39,7 +34,7 @@ public class StudentController {
     @PutMapping(path = "/{id}")
     @Operation(description = "End point para inclusão de aluno")
     public ResponseEntity<Object> update(
-            @RequestBody UpdateStudentDTO dto,
+            @RequestBody StudentUpdateDTO dto,
             @PathVariable("id") Long id){
         Student data = mapper.toModel(dto);
         data.setId(id);

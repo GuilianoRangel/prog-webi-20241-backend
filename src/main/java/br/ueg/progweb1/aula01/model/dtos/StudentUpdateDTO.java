@@ -1,6 +1,5 @@
 package br.ueg.progweb1.aula01.model.dtos;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Data
@@ -8,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateStudentDTO {
+public class StudentUpdateDTO {
     private String name;
 
     private String course;
