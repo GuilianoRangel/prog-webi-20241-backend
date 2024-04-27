@@ -21,18 +21,7 @@ GenericSimpleCRUDController<TaskDTO, Task,Long, TaskService, TaskMapper>
             @PathVariable("id") Long id
     ) {
         TaskDTO dtoResult;
-        try{
-
-            dtoResult = mapper.toDTO(service.completedTask(id));
-
-        }catch (DataException de){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        dtoResult = mapper.toDTO(service.completedTask(id));
         return ResponseEntity.ok(dtoResult);
     }
 }

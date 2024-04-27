@@ -31,20 +31,8 @@ public class StudentController {
     @PostMapping
     @Operation(description = "End point para inclusão de aluno")
     public ResponseEntity<Object> create(@RequestBody CreateStudentDTO dto){
-        Student studentSaved =  null;
-        try{
-            Student studentModel = mapper.toModel(dto);
-            studentSaved = service.create(studentModel);
-        }catch (MandatoryException e) {
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
-                    .body("Erro:" + e.getMessage());
-        }catch (BusinessLogicException e){
-                return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
-                        .body("Erro:"+e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        Student studentModel = mapper.toModel(dto);
+        Student studentSaved = service.create(studentModel);
         return ResponseEntity.ok(studentSaved);
     }
 
@@ -53,25 +41,9 @@ public class StudentController {
     public ResponseEntity<Object> update(
             @RequestBody UpdateStudentDTO dto,
             @PathVariable("id") Long id){
-        Student studentSaved =  null;
-        try{
-
-
-            Student data = mapper.toModel(dto);
-            data.setId(id);
-            studentSaved = service.update(data);
-
-
-        }catch (MandatoryException e) {
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
-                    .body("Erro:" + e.getMessage());
-        }catch (BusinessLogicException e){
-            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
-                    .body("Erro:"+e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        Student data = mapper.toModel(dto);
+        data.setId(id);
+        Student studentSaved = service.update(data);
         return ResponseEntity.ok(studentSaved);
     }
 
@@ -79,14 +51,7 @@ public class StudentController {
     @Operation(description = "lista todos os estudantes")
     @CrossOrigin()
     public ResponseEntity<List<Student>> listAll(){
-
-        List<Student> studentList = new ArrayList<>();
-        try {
-            studentList = service.listAll();
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
-        }
+        List<Student> studentList = service.listAll();
         return ResponseEntity.of(
                 Optional.ofNullable(studentList)
         );
@@ -104,19 +69,7 @@ public class StudentController {
     public ResponseEntity<Object> getById(
             @PathVariable("id") Long id
     ) {
-        Student studentDB =  Student.builder().id(0L).build();
-        try{
-
-            studentDB = service.getById(id);
-
-        }catch (DataException de){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        Student studentDB = service.getById(id);
         return ResponseEntity.ok(studentDB);
     }
 
@@ -126,18 +79,7 @@ public class StudentController {
             @PathVariable("id") Long id
     ) {
         Student studentDB =  Student.builder().id(0L).build();
-        try{
-
-            studentDB = service.deleteById(id);
-
-        }catch (DataException de){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        studentDB = service.deleteById(id);
         return ResponseEntity.ok(studentDB);
     }
 

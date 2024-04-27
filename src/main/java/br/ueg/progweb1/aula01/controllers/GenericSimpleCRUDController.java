@@ -25,7 +25,7 @@ public abstract class GenericSimpleCRUDController<
                 MODEL,
                 TYPE_PK>,
         MAPPER extends GenericSimpleMapper<DTO, MODEL, TYPE_PK>
-        >{
+        > {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -37,21 +37,9 @@ public abstract class GenericSimpleCRUDController<
 
     @PostMapping
     @Operation(description = "End point para inclusão de dado")
-    public ResponseEntity<Object> create(@RequestBody DTO dto){
-        MODEL resultModel =  null;
-        try{
-            MODEL inputModel = mapper.toModel(dto);
-            resultModel = service.create(inputModel);
-        }catch (MandatoryException e) {
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
-                    .body("Erro:" + e.getMessage());
-        }catch (BusinessLogicException e){
-            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
-                    .body("Erro:"+e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+    public ResponseEntity<Object> create(@RequestBody DTO dto) {
+        MODEL inputModel = mapper.toModel(dto);
+        MODEL resultModel = service.create(inputModel);
         return ResponseEntity.ok(resultModel);
     }
 
@@ -59,41 +47,18 @@ public abstract class GenericSimpleCRUDController<
     @Operation(description = "End point para atualização de dados")
     public ResponseEntity<Object> update(
             @RequestBody DTO dto,
-            @PathVariable("id") TYPE_PK id){
-        MODEL modelSaved =  null;
-        try{
-
-
-            MODEL inputModel = mapper.toModel(dto);
-            inputModel.setId(id);
-            modelSaved = service.update(inputModel);
-
-
-        }catch (MandatoryException e) {
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
-                    .body("Erro:" + e.getMessage());
-        }catch (BusinessLogicException e){
-            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
-                    .body("Erro:"+e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+            @PathVariable("id") TYPE_PK id) {
+        MODEL inputModel = mapper.toModel(dto);
+        inputModel.setId(id);
+        MODEL modelSaved = service.update(inputModel);
         return ResponseEntity.ok(modelSaved);
     }
 
     @GetMapping
     @Operation(description = "lista todos os estudantes")
     @CrossOrigin()
-    public ResponseEntity<List<DTO>> listAll(){
-
-        List<DTO> modelList;
-        try {
-            modelList = mapper.toDTO(service.listAll());
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
-        }
+    public ResponseEntity<List<DTO>> listAll() {
+        List<DTO> modelList = mapper.toDTO(service.listAll());
         return ResponseEntity.of(
                 Optional.ofNullable(modelList)
         );
@@ -104,19 +69,7 @@ public abstract class GenericSimpleCRUDController<
     public ResponseEntity<Object> getById(
             @PathVariable("id") TYPE_PK id
     ) {
-        DTO dtoResult =  null;
-        try{
-
-            dtoResult = mapper.toDTO(service.getById(id));
-
-        }catch (DataException de){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        DTO dtoResult = mapper.toDTO(service.getById(id));
         return ResponseEntity.ok(dtoResult);
     }
 
@@ -125,19 +78,7 @@ public abstract class GenericSimpleCRUDController<
     public ResponseEntity<Object> remove(
             @PathVariable("id") TYPE_PK id
     ) {
-        DTO dtoResult;
-        try{
-
-            dtoResult = mapper.toDTO(service.deleteById(id));
-
-        }catch (DataException de){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Erro de dados ocorreu. Detalhe:"+de.getMessage());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
-        }
+        DTO dtoResult = mapper.toDTO(service.deleteById(id));
         return ResponseEntity.ok(dtoResult);
     }
 
