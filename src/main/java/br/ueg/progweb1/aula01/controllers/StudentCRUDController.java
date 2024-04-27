@@ -1,6 +1,7 @@
 package br.ueg.progweb1.aula01.controllers;
 
 import br.ueg.progweb1.aula01.mapper.StudentMapper;
+import br.ueg.progweb1.aula01.mapper.StudentMapstructMapper;
 import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.model.dtos.StudentCreateDTO;
 import br.ueg.progweb1.aula01.model.dtos.StudentDTO;
@@ -25,7 +26,7 @@ public class StudentCRUDController extends GenericCRUDController<
         Student,
         Long,
         StudentService,
-        StudentMapper
+        StudentMapstructMapper
         > {
 
     @GetMapping(path = "/yesterday-registers")
