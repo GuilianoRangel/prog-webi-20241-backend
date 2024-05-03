@@ -20,7 +20,7 @@ public class StudentMapper implements GenericMapper<
         > {
     public Student toModel(StudentCreateDTO dto){
         Student s = new Student();
-        s.setCourse(dto.getCourse());
+        s.setCourse(dto.getCourseRegister());
         s.setName(dto.getName());
         s.setRegisterNumber(dto.getRegisterNumber());
         return s;
@@ -47,7 +47,7 @@ public class StudentMapper implements GenericMapper<
     public Student fromModelCreatedToModel(StudentCreateDTO studentCreateDTO) {
         Student s = new Student();
         s.setRegisterNumber(studentCreateDTO.getRegisterNumber());
-        s.setCourse(studentCreateDTO.getCourse());
+        s.setCourse(studentCreateDTO.getCourseRegister());
         s.setName(studentCreateDTO.getName());
         return s;
     }

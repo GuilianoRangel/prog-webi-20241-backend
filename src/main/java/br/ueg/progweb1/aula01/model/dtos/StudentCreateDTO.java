@@ -18,6 +18,6 @@ public class StudentCreateDTO {
     private String name;
 
     @Schema(description = "Nome do Curso", example = "Sistemas")
-    private String course;
+    private String courseRegister;
 
 }

@@ -6,6 +6,7 @@ import br.ueg.progweb1.aula01.model.dtos.StudentDTO;
 import br.ueg.progweb1.aula01.model.dtos.StudentListDTO;
 import br.ueg.progweb1.aula01.model.dtos.StudentUpdateDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -18,15 +19,7 @@ public interface StudentMapstructMapper extends GenericMapper<
         Student,
         Long
         > {
-    Student toModel(StudentDTO studentDTO) ;
-
+    @Mapping(target = "course", source = "courseRegister")
+    @Override
     Student fromModelCreatedToModel(StudentCreateDTO studentCreateDTO);
-
-    Student fromModelUpdatedToModel(StudentUpdateDTO studentUpdateDTO);
-
-    StudentDTO toDTO(Student model);
-
-    StudentListDTO toDTOList(Student model);
-
-    List<StudentListDTO> fromModelToDTOList(List<Student> students);
 }
