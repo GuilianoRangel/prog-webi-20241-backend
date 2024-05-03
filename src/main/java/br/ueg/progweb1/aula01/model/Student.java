@@ -17,16 +17,17 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Table(name = "ALUNO")
 public  class Student implements GenericModel<Long> {
+    public final static String SEQUENCE_NAME = "student_sequence";//Mude o nome para criar outro
 
     @Id
     @SequenceGenerator(
-            name="student_sequence",
-            sequenceName = "student_sequence_bd",
+            name=SEQUENCE_NAME,
+            sequenceName = SEQUENCE_NAME+"_bd",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "student_sequence"
+            generator = SEQUENCE_NAME
     )
     @Column(name = "chave", nullable = false)
     private Long id;
