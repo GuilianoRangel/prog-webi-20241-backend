@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "${api.version}/task")
 public class TaskController extends
 GenericCRUDController<
-        TaskDTO,
-        TaskDTO,
-        TaskDTO,
-        TaskDTO,
-        Task,
-        Long,
-        TaskService,
-        TaskMapper>
+        TaskDTO, //DTO Geral
+        TaskDTO, //DTO Create
+        TaskDTO, //DTO Update
+        TaskDTO, //DTO List
+        Task, // Modelo
+        Long, // PK_TYPE
+        TaskService, //Interface Serviço
+        TaskMapper> // Mapper
 {
     @PostMapping(path = "/complete/{id}")
     @Operation(description = "End point para completar a tarefa")
