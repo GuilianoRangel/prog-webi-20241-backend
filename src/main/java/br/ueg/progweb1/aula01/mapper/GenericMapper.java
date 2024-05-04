@@ -8,6 +8,7 @@ import org.mapstruct.Named;
 import java.util.List;
 
 //TODO explicar o Named e IterableMapping
+// Explicar o GenericUpdateMapper
 public interface GenericMapper<
         DTO,
         DTOCreate,
@@ -15,20 +16,13 @@ public interface GenericMapper<
         DTOList,
         MODEL extends GenericModel<TYPE_PK>,
         TYPE_PK
-        > {
+        > extends GenericUpdateMapper<MODEL, TYPE_PK> {
     MODEL toModel(DTO dto);
     MODEL fromModelCreatedToModel(DTOCreate dtoCreate);
 
     MODEL fromModelUpdatedToModel(DTOUpdate dtoUpdate);
 
-    /**
-     * Atualiza o objeto entity com os dados
-     * do objeto updateEntity, pegando apenas o atributos
-     * preenchidos.
-     * @param entity
-     * @param updateEntity
-     */
-    void updateModelFromModel(@MappingTarget MODEL entity, MODEL updateEntity);
+
 
     DTO toDTO(MODEL model);
 

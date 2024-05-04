@@ -1,6 +1,7 @@
 package br.ueg.progweb1.aula01.service.impl;
 
 import br.ueg.progweb1.aula01.exceptions.DataException;
+import br.ueg.progweb1.aula01.mapper.GenericUpdateMapper;
 import br.ueg.progweb1.aula01.model.GenericModel;
 import br.ueg.progweb1.aula01.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public abstract class GenericCrudService<
             MODEL,
             TYPE_PK
         >{
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    private GenericUpdateMapper<MODEL, TYPE_PK> mapper;
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -47,7 +51,9 @@ public abstract class GenericCrudService<
         return repository.save(dataDB);
     }
 
-    protected abstract void updateDataDBFromUpdate(MODEL dataToUpdate, MODEL dataDB);
+    protected void updateDataDBFromUpdate(MODEL dataToUpdate, MODEL dataDB){
+        mapper.updateModelFromModel(dataDB, dataToUpdate);
+    };
 
     @Override
     public MODEL getById(TYPE_PK id){

@@ -1,6 +1,6 @@
 package br.ueg.progweb1.aula01.controllers;
 
-import br.ueg.progweb1.aula01.mapper.StudentMapper;
+import br.ueg.progweb1.aula01.mapper.StudentMapstructMapper;
 import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.model.dtos.StudentCreateDTO;
 import br.ueg.progweb1.aula01.model.dtos.StudentUpdateDTO;
@@ -21,12 +21,12 @@ public class StudentController {
     private StudentService service;
 
     @Autowired
-    private StudentMapper mapper;
+    private StudentMapstructMapper mapper;
 
     @PostMapping
     @Operation(description = "End point para inclusão de aluno")
     public ResponseEntity<Object> create(@RequestBody StudentCreateDTO dto){
-        Student studentModel = mapper.toModel(dto);
+        Student studentModel = mapper.fromModelCreatedToModel(dto);
         Student studentSaved = service.create(studentModel);
         return ResponseEntity.ok(studentSaved);
     }
@@ -36,7 +36,7 @@ public class StudentController {
     public ResponseEntity<Object> update(
             @RequestBody StudentUpdateDTO dto,
             @PathVariable("id") Long id){
-        Student data = mapper.toModel(dto);
+        Student data = mapper.fromModelUpdatedToModel(dto);
         data.setId(id);
         Student studentSaved = service.update(data);
         return ResponseEntity.ok(studentSaved);

@@ -2,6 +2,7 @@ package br.ueg.progweb1.aula01.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Setter
 @ToString
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "PESSOA")

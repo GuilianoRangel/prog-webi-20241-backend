@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+//@Component
+//TODO Explicar remoção por conflito
 public class StudentMapper implements GenericMapper<
         StudentDTO,
         StudentCreateDTO,

@@ -1,8 +1,9 @@
 package br.ueg.progweb1.aula01.model.dtos;
 
-import br.ueg.progweb1.aula01.model.GenericModel;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;

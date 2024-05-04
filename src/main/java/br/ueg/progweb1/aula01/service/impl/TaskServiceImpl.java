@@ -14,12 +14,13 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
     protected void prepareToCreate(Task dado) {
         dado.setId(null);
     }
-
-    @Override
+    //TODO Explicar o uso do método generic.
+    // remover após explicação
+/*    @Override
     protected void updateDataDBFromUpdate(Task dataToUpdate, Task dataDB) {
         dataDB.setDescription(dataToUpdate.getDescription());
         dataDB.setCompleted(dataToUpdate.getCompleted());
-    }
+    }*/
 
     @Override
     protected void validateBusinessLogicForInsert(Task dado) {

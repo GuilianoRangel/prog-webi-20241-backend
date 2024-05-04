@@ -1,25 +1,12 @@
 package br.ueg.progweb1.aula01.model.dtos;
 
-import lombok.*;
+import br.ueg.progweb1.aula01.model.Person;
+import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
-
-@Data
-@ToString
+// TODO Explicar como utilizar de Herança no DTO
 @SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
-//TODO voltar a utilizar extends
-public class PersonListDTO {
+public class PersonListDTO extends Person {
 
-    private Long id;
-
-    private String name;
-
-    private String cpf;
-
-    private Date birthday;
-
-    private String gender;
 }

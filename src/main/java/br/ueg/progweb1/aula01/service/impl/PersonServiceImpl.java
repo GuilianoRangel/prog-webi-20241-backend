@@ -12,22 +12,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonServiceImpl extends GenericCrudService<Person, Long, PersonRepository> implements PersonService {
 
-    @Autowired
-    private PersonMapper mapper;
+
 
     @Override
     protected void prepareToCreate(Person dado) {
 
     }
 
-    @Override
+    //TODO Explicar o uso do método generic.
+    // remover após explicação
+    /*@Override
     protected void updateDataDBFromUpdate(Person dataToUpdate, Person dataDB) {
         dataDB.setBirthday(dataToUpdate.getBirthday());
         dataDB.setName(dataToUpdate.getName());
         dataDB.setCpf(dataToUpdate.getCpf());
         dataDB.setGender(dataToUpdate.getGender());
         //mapper.updateModelFromModel(dataDB, dataToUpdate);
-    }
+    }*/
 
     @Override
     protected void validateBusinessLogicForInsert(Person dado) {
