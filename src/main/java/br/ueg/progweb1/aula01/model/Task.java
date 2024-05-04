@@ -3,8 +3,7 @@ package br.ueg.progweb1.aula01.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.time.LocalDate;
+import lombok.experimental.SuperBuilder;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -12,7 +11,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Setter
 @ToString
 @Entity
-@Builder
+// TODO Explicar como utilizar de Herança no DTO
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "TASK")

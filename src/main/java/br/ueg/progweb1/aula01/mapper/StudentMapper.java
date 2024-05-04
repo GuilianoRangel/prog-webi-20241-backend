@@ -61,6 +61,12 @@ public class StudentMapper implements GenericMapper<
     }
 
     @Override
+    public void updateModelFromModel(Student dataDB, Student dataToUpdate) {
+        dataDB.setName(dataToUpdate.getName());
+        dataDB.setCourse(dataToUpdate.getCourse());
+    }
+
+    @Override
     public StudentDTO toDTO(Student model) {
         StudentDTO dto = new StudentDTO();
         dto.setId(model.getId());

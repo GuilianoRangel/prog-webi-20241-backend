@@ -53,7 +53,6 @@ public abstract class GenericCRUDController<
 
     @GetMapping
     @Operation(description = "lista todos os estudantes")
-    @CrossOrigin()
     public ResponseEntity<List<DTOList>> listAll() {
         List<DTOList> modelList = mapper.fromModelToDTOList(service.listAll());
         return ResponseEntity.of(
