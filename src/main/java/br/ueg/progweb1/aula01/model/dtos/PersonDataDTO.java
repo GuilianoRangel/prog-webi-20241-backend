@@ -2,7 +2,7 @@ package br.ueg.progweb1.aula01.model.dtos;
 
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @ToString
@@ -15,7 +15,7 @@ public class PersonDataDTO {
 
     private String cpf;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     private String gender;
 }

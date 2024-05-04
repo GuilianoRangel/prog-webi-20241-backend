@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
-
-import static jakarta.persistence.GenerationType.SEQUENCE;
+import java.time.LocalDate;
 
 @Data
 @ToString
@@ -22,7 +20,7 @@ public class PersonDTO{
 
     private String cpf;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     private String gender;
 }

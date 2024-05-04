@@ -3,7 +3,7 @@ package br.ueg.progweb1.aula01.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -38,7 +38,7 @@ public class Person implements GenericModel<Long> {
     private String cpf;
 
     @Column(name = "ANIVERSARIO")
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name ="SEXO")
     private String gender;
