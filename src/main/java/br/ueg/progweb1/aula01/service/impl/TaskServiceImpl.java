@@ -8,6 +8,8 @@ import br.ueg.progweb1.aula01.service.TaskService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskRepository> implements TaskService {
     @Override
