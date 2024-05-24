@@ -1,12 +1,10 @@
 package br.ueg.progweb1.aula01.service.impl;
 
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
-import br.ueg.progweb1.aula01.mapper.PersonMapper;
 import br.ueg.progweb1.aula01.model.Person;
 import br.ueg.progweb1.aula01.repository.PersonRepository;
 import br.ueg.progweb1.aula01.service.PersonService;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -2,7 +2,6 @@ package br.ueg.progweb1.aula01.mapper;
 
 import br.ueg.progweb1.aula01.model.GenericModel;
 import org.mapstruct.IterableMapping;
-import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import java.util.List;
