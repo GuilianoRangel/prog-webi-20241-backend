@@ -11,7 +11,6 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Setter
 @ToString
 @Entity
-// TODO Explicar como utilizar de Herança no DTO
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
