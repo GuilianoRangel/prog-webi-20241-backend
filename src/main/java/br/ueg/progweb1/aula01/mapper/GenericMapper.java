@@ -7,8 +7,6 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-//TODO explicar o Named e IterableMapping
-// Explicar o GenericUpdateMapper
 public interface GenericMapper<
         DTO,
         DTOCreate,

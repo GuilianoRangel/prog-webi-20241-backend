@@ -16,13 +16,6 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
     protected void prepareToCreate(Task dado) {
         dado.setId(null);
     }
-    //TODO Explicar o uso do método generic.
-    // remover após explicação
-/*    @Override
-    protected void updateDataDBFromUpdate(Task dataToUpdate, Task dataDB) {
-        dataDB.setDescription(dataToUpdate.getDescription());
-        dataDB.setCompleted(dataToUpdate.getCompleted());
-    }*/
 
     @Override
     protected void validateBusinessLogicForInsert(Task dado) {
@@ -33,7 +26,6 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
     protected void validateBusinessLogicForUpdate(Task dado) {
         Task byId = this.getById(dado.getId());
 
-        //TODO falar sobre o uso de Objects.equals para compara livre de nullpointer
         if ( Objects.equals(byId.getCompleted(), dado.getCompleted()) ) {
             String error = "Tarefa já está "+
                     (Boolean.TRUE.equals(byId.getCompleted()) ?

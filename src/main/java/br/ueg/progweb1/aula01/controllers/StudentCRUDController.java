@@ -1,6 +1,5 @@
 package br.ueg.progweb1.aula01.controllers;
 
-import br.ueg.progweb1.aula01.mapper.StudentMapper;
 import br.ueg.progweb1.aula01.mapper.StudentMapstructMapper;
 import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.model.dtos.StudentCreateDTO;
@@ -9,7 +8,6 @@ import br.ueg.progweb1.aula01.model.dtos.StudentListDTO;
 import br.ueg.progweb1.aula01.model.dtos.StudentUpdateDTO;
 import br.ueg.progweb1.aula01.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
