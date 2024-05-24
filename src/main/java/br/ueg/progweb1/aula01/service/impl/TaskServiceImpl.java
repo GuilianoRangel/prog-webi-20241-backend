@@ -29,7 +29,15 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
 
     @Override
     protected void validateBusinessLogicForUpdate(Task dado) {
+        Task byId = this.getById(dado.getId());
 
+        //TODO falar sobre o uso de Objects.equals para compara livre de nullpointer
+        if ( Objects.equals(byId.getCompleted(), dado.getCompleted()) ) {
+            String error = "Tarefa já está "+
+                    (Boolean.TRUE.equals(byId.getCompleted()) ?
+                    "completada" : "não completada");
+            throw new MandatoryException(error);
+        }
     }
 
     @Override
