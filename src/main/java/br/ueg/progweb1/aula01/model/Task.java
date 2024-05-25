@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Getter
@@ -37,4 +41,17 @@ public  class Task implements GenericModel<Long> {
     @Column(name = "concluida")
     private Boolean completed;
 
+/*    @Override
+    public Map<String, Object> getFieldValues() {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("id",this.getId());
+        maps.put("description",this.getDescription());
+        maps.put("completed",this.getCompleted());
+        return maps;
+    }
+
+    @Override
+    public List<String> getMandatoryFields() {
+        return List.of("description");
+    }*/
 }

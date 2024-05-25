@@ -1,6 +1,8 @@
 package br.ueg.progweb1.aula01.service;
 
+import br.ueg.progweb1.aula01.model.Category;
 import br.ueg.progweb1.aula01.model.Student;
+import br.ueg.progweb1.aula01.repository.CategoryRepository;
 import br.ueg.progweb1.aula01.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,9 @@ public class AppStartupRunner implements ApplicationRunner {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public void initDados(){
         LOG.info("Inicio da execução do InitDados!");
         if(!this.ddlAuto.equalsIgnoreCase(CREATE_DROP)){
@@ -40,6 +45,13 @@ public class AppStartupRunner implements ApplicationRunner {
                     .build();
             this.studentRepository.save(student);
         }
+
+        Category cat1 = Category.builder().name("Prioridade Baixa").build();
+        Category cat2 = Category.builder().name("Prioridade Média").build();
+        Category cat3 = Category.builder().name("Prioridade Alta").build();
+        categoryRepository.save(cat1);
+        categoryRepository.save(cat2);
+        categoryRepository.save(cat3);
         LOG.info("Fim da execução");
     }
 
