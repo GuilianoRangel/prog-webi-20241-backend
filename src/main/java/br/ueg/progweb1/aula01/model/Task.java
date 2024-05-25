@@ -41,6 +41,10 @@ public  class Task implements GenericModel<Long> {
     @Column(name = "concluida")
     private Boolean completed;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_category_tipo"))
+    private Category category;
+
 /*    @Override
     public Map<String, Object> getFieldValues() {
         HashMap<String, Object> maps = new HashMap<>();

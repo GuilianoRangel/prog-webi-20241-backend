@@ -36,7 +36,9 @@ public abstract class GenericCrudService<
         validateMandatoryFields(dado);
         validateBusinessLogic(dado);
         validateBusinessLogicForInsert(dado);
-        return repository.save(dado);
+        MODEL saved = repository.saveAndFlush(dado);
+        //TODO verificar para buscar os dados no banco novmente para atualizar dados relacionados
+        return this.getById(saved.getId());
     }
 
     protected abstract void prepareToCreate(MODEL dado);

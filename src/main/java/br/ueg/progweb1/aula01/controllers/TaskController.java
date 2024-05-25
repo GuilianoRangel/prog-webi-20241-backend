@@ -3,6 +3,7 @@ package br.ueg.progweb1.aula01.controllers;
 import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.mapper.TaskMapper;
 import br.ueg.progweb1.aula01.model.Task;
+import br.ueg.progweb1.aula01.model.dtos.TaskCreateDTO;
 import br.ueg.progweb1.aula01.model.dtos.TaskDTO;
 import br.ueg.progweb1.aula01.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController extends
 GenericCRUDController<
         TaskDTO, //DTO Geral
-        TaskDTO, //DTO Create
+        TaskCreateDTO, //DTO Create
         TaskDTO, //DTO Update
         TaskDTO, //DTO List
         Task, // Modelo

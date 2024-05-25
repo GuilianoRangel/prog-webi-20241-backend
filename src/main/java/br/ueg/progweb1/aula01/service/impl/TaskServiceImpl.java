@@ -15,6 +15,7 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
     @Override
     protected void prepareToCreate(Task dado) {
         dado.setId(null);
+        dado.setCompleted(false);
     }
 
     @Override
