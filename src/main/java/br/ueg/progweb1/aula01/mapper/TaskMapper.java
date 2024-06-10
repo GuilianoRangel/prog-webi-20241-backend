@@ -3,6 +3,7 @@ package br.ueg.progweb1.aula01.mapper;
 import br.ueg.progweb1.aula01.model.Task;
 import br.ueg.progweb1.aula01.model.dtos.TaskCreateDTO;
 import br.ueg.progweb1.aula01.model.dtos.TaskDTO;
+import br.ueg.progweb1.aula01.model.dtos.TaskUpdateDTO;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public interface TaskMapper extends GenericMapper<
         TaskDTO, // DTO Geral
         TaskCreateDTO, // DTO Create
-        TaskDTO, // DTO Update
+        TaskUpdateDTO, // DTO Update
         TaskDTO, // DTO List
         Task, // Model
         Long // PK_TYPE
@@ -29,7 +30,8 @@ public interface TaskMapper extends GenericMapper<
     Task fromModelCreatedToModel(TaskCreateDTO taskDTO);
 
     @Override
-    Task fromModelUpdatedToModel(TaskDTO taskDTO);
+    @Mapping(source = "category_id", target = "category.id" )
+    Task fromModelUpdatedToModel(TaskUpdateDTO taskDTO);
 
     @Override
     @Mapping(source = "category.id", target = "category_id")

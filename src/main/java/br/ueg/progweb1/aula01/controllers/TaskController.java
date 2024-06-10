@@ -5,6 +5,7 @@ import br.ueg.progweb1.aula01.mapper.TaskMapper;
 import br.ueg.progweb1.aula01.model.Task;
 import br.ueg.progweb1.aula01.model.dtos.TaskCreateDTO;
 import br.ueg.progweb1.aula01.model.dtos.TaskDTO;
+import br.ueg.progweb1.aula01.model.dtos.TaskUpdateDTO;
 import br.ueg.progweb1.aula01.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class TaskController extends
 GenericCRUDController<
         TaskDTO, //DTO Geral
         TaskCreateDTO, //DTO Create
-        TaskDTO, //DTO Update
+        TaskUpdateDTO, //DTO Update
         TaskDTO, //DTO List
         Task, // Modelo
         Long, // PK_TYPE
