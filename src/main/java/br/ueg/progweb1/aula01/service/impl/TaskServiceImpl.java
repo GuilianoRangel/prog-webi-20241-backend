@@ -25,14 +25,6 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
 
     @Override
     protected void validateBusinessLogicForUpdate(Task dado) {
-        Task byId = this.getById(dado.getId());
-
-        if ( Objects.equals(byId.getCompleted(), dado.getCompleted()) ) {
-            String error = "Tarefa já está "+
-                    (Boolean.TRUE.equals(byId.getCompleted()) ?
-                    "completada" : "não completada");
-            throw new MandatoryException(error);
-        }
     }
 
     @Override
@@ -43,7 +35,9 @@ public class TaskServiceImpl extends GenericCrudService<Task, Long, TaskReposito
     @Override
     protected void validateMandatoryFields(Task dado) {
         if(
-                Strings.isEmpty(dado.getDescription())
+                Strings.isEmpty(dado.getDescription())||
+                        (Objects.isNull(dado.getCategory()) ||
+                                dado.getCategory().getId()==null)
         ){
             throw new MandatoryException("Campos obrigatórios não preenchidos");
         }
